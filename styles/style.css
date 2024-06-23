@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #171717;
+}
+
+header {
+  background-color: #262626;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem auto 0 auto;
+  max-width: 1400px;
+  flex-wrap: wrap;
+  height: 143px;
+  border-radius: 25px;
+  gap: 27px;
+  padding: 0 54px 0 54px;
+}
+header .nav {
+  display: flex;
+  gap: 27px;
+}
+header .nav .header-menu {
+  display: flex;
+}
+header .nav .dropdown-center .btn {
+  background-color: #262626;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  border-radius: 5px;
+}
+header .input-search-nav {
+  width: 190px;
+  height: 50px;
+}/*# sourceMappingURL=style.css.map */
