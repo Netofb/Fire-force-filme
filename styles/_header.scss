@@ -10,12 +10,13 @@ header{
     height: 143px;
     border-radius: 25px;
     padding: 0 54px 0 54px;
+    position: relative;
     
       img{
          width: 200px;
       }
       .nav{
-            ul{
+            #menu{
                display: flex;
                gap: 54px;
                margin: auto;

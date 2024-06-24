@@ -14,19 +14,19 @@
     position: relative;
     
     .dropdown-menu{
-        
+        border-radius: 0 !important;
         
         gap: 10px;
         top: 2.4rem;
         flex-direction: column;
         position: absolute;
         background-color: rgb(31, 31, 31);
-        border: 2px solid #ff0000;
+        
         z-index: 999;
           
             &::before{
                 content: '';
-                color: #ff0000;
+                color: rgb(31, 31, 31);
                 display: block;
                 position: absolute;
                 top: -10px;
@@ -47,7 +47,8 @@
                     font-weight: 500;
                    
                     &:hover{
-                        color: #ff0000;
+                        color: #ff0000 !important;
+                        
                         
                     }
                 }   
