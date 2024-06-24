@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -12,30 +14,84 @@ header {
   background-color: #262626;
   display: flex;
   justify-content: space-between;
+  align-self: center;
   align-items: center;
   margin: 2rem auto 0 auto;
   max-width: 1400px;
   flex-wrap: wrap;
   height: 143px;
   border-radius: 25px;
-  gap: 27px;
   padding: 0 54px 0 54px;
 }
-header .nav {
-  display: flex;
-  gap: 27px;
+header img {
+  width: 200px;
 }
-header .nav .header-menu {
+header .nav ul {
   display: flex;
+  gap: 54px;
+  margin: auto;
 }
-header .nav .dropdown-center .btn {
-  background-color: #262626;
-  border: none;
+header .nav ul a {
+  text-decoration: none;
+  font-size: 28px;
   color: #fff;
-  font-size: 24px;
-  border-radius: 5px;
+  font-weight: 400;
 }
-header .input-search-nav {
-  width: 190px;
-  height: 50px;
+
+[data-dropdown] .dropdown-menu {
+  display: none;
+}
+
+[data-dropdown]:hover .dropdown-menu,
+[data-dropdown].active .dropdown-menu {
+  display: block;
+  animation: show-up 0.3s forwards;
+}
+
+[data-dropdown] {
+  position: relative;
+}
+[data-dropdown] .dropdown-menu {
+  gap: 10px;
+  top: 2.4rem;
+  flex-direction: column;
+  position: absolute;
+  background-color: rgb(31, 31, 31);
+  border: 2px solid #ff0000;
+  z-index: 999;
+}
+[data-dropdown] .dropdown-menu::before {
+  content: "";
+  color: #ff0000;
+  display: block;
+  position: absolute;
+  top: -10px;
+  width: 0px;
+  height: 0px;
+  border-bottom: 12px solid #ff0000;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+[data-dropdown] .dropdown-menu li {
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem;
+}
+[data-dropdown] .dropdown-menu li a {
+  font-weight: 500;
+}
+[data-dropdown] .dropdown-menu li a:hover {
+  color: #ff0000;
+}
+
+@keyframes show-up {
+  from {
+    opacity: 0;
+    transform: matrix3d(0, 30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: matrix3d(0, 0, 0);
+  }
 }/*# sourceMappingURL=style.css.map */
