@@ -1,35 +1,21 @@
-import initDropdown from './dropdown.js';
-import initMenuMobile from './menuMobile.js';
 
 
 
 
 
-
-initDropdown();
-initMenuMobile();
 
 
 // Menu mobile
 
-const menuButton = document.querySelector('#btn');
-const menuList = document.querySelector('#menu');
+const menuButton = document.querySelector('[data-menu="button"]');
+const menuList = document.querySelector('[data-menu="List"]');
 
 
 function openMenu(event){
-
     menuList.classList.toggle('active');
-    menuButton.classList.add('active');
-
-
+    menuButton.classList.toggle('active');
 }
 menuButton.addEventListener('click', openMenu);
-
-
-
-
-
-
 
 
 

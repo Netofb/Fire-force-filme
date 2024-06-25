@@ -108,7 +108,7 @@ header .nav #menu a {
   }
   [data-menu=button] {
     display: flex;
-    background-color: black;
+    background-color: rgb(25, 25, 26);
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -127,15 +127,13 @@ header .nav #menu a {
     content: "";
     display: inline-block;
     height: 2px;
-    width: 12px;
-    background: black;
-    box-shadow: 0 4px black, 0 -4px black;
-  }
-  [data-menu=button].active::before {
-    transform: rotate(90deg);
+    width: 16px;
+    background: red;
+    box-shadow: 0 5px red, 0 -5px red;
+    transition: transform 0.3s;
   }
   #menu {
-    display: flex;
+    display: none !important;
     gap: 1rem;
     flex-direction: column;
     position: absolute;
@@ -144,8 +142,8 @@ header .nav #menu a {
     width: 230px;
     z-index: 99;
     padding: 60px 0 20px 0;
-    top: 80px;
-    box-shadow: 2px 2px 2px 0 red;
+    top: 5rem;
+    border-radius: 5px;
   }
   .dropdown-menu {
     position: static !important;
@@ -153,4 +151,13 @@ header .nav #menu a {
     width: 230px !important;
     border-radius: 0 !important;
   }
+}
+[data-menu=button].active::before {
+  transform: rotate(90deg);
+}
+
+#menu.active {
+  display: block !important;
+  display: flex !important;
+  align-items: center !important;
 }/*# sourceMappingURL=style.css.map */

@@ -11,7 +11,7 @@
  
    [data-menu="button"]{
         display: flex;    
-        background-color: black;   
+        background-color: rgb(25, 25, 26);   
         border: none;
         padding: .5rem 1rem;
         border-radius: 4px;
@@ -30,19 +30,20 @@
             content: '';
             display: inline-block;
             height: 2px;
-            width: 12px;
-            background: black;
-            box-shadow: 0 4px black, 0 -4px black;
+            width: 16px;
+            background: red;
+            box-shadow: 0 5px red, 0 -5px red;
+            transition: transform .3s;
 
         }
       
         
     }
-    [data-menu="button"].active::before{
-        transform: rotate(90deg);
-    }
+    
+
+    
     #menu{
-        display: flex;
+        display: none !important;
         gap: 1rem;
         flex-direction: column;
         position: absolute;
@@ -53,8 +54,8 @@
         width: 230px;
         z-index: 99;
         padding: 60px 0 20px 0;
-        top: 80px;
-        box-shadow: 2px 2px 2px 0 red;
+        top: 5rem;
+        border-radius: 5px;
     }
     .dropdown-menu{
         position: static !important;
@@ -65,6 +66,14 @@
     }
   
 }
-
+[data-menu="button"].active::before{
+    transform: rotate(90deg);
+}
+#menu.active{
+    display: block !important;
+    display: flex !important;
+    align-items: center !important;
+    
+}
 
 
