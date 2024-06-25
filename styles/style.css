@@ -7,6 +7,10 @@
   list-style-type: none;
 }
 
+body {
+  background-color: #171717;
+}
+
 header {
   background-color: #262626;
   display: flex;
