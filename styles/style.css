@@ -190,4 +190,24 @@ header .nav #menu a {
   .titulos-nomes:hover {
     color: black !important;
   }
+}
+img {
+  max-width: 100%;
+}
+
+.slide-wrapper {
+  max-width: 1400px;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.slide-wrapper .slide {
+  display: flex;
+  transform: translate3d(-1px, 0px, 0px);
+}
+.slide-wrapper .slide li {
+  flex-shrink: 0;
+  width: 33vw;
+  max-width: 300px;
+  margin: 0 15px;
 }/*# sourceMappingURL=style.css.map */

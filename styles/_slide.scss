@@ -1,0 +1,22 @@
+img{
+    max-width: 100%;
+}
+.slide-wrapper{
+    max-width: 1400px;
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+    .slide{
+        display: flex;
+        transform: translate3d(-1px, 0px, 0px);
+        li{
+            flex-shrink: 0;
+            width: 33vw;
+            max-width: 300px;  
+            margin: 0 15px;
+            
+        }
+    }
+}
+
+
