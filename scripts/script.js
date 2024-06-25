@@ -69,7 +69,7 @@ class Slide{
     }
 
     onEnd(event){
-        console.log('acabou')
+        
         this.wrapper.removeEventListener('mousemove', this.onMove);
 
     }
