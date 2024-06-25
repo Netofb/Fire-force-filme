@@ -8,6 +8,7 @@ img{
     overflow: hidden;
     .slide{
         display: flex;
+        flex-direction: row;
         transform: translate3d(-1px, 0px, 0px);
         li{
             flex-shrink: 0;

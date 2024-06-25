@@ -203,6 +203,7 @@ img {
 }
 .slide-wrapper .slide {
   display: flex;
+  flex-direction: row;
   transform: translate3d(-1px, 0px, 0px);
 }
 .slide-wrapper .slide li {
