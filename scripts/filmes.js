@@ -113,3 +113,116 @@ let series = [
     });
 }
 preencherSeries();
+
+//top filme
+
+let topFilme = [
+    {
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },
+    {
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },
+   
+    // Adicione mais filmes conforme necessário
+];
+
+  // Função para preencher os dados do filme na lista existente
+  function preencherTopFilme() {
+    // Selecionar todos os itens da lista
+    let itens = document.querySelectorAll('#filmes-container3 li');
+
+    // Iterar sobre a lista de filmes e preencher os dados nos itens existentes
+    topFilme.forEach((serie, index) => {
+        if (itens[index]) {
+            let linkElement = itens[index].querySelector('a');
+            let imgElement = itens[index].querySelector('img');
+
+            // Definir os atributos do link e da imagem
+            linkElement.href = serie.link;
+            imgElement.src = serie.capa;
+            imgElement.alt = serie.nome;
+        }
+    });
+}
+preencherTopFilme();
+
+//topSeries
+let topSeries = [
+    {
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },
+    {
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },{
+        nome: "A rede Social",
+        capa: "./img/5601463.png",
+        link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
+    },
+   
+    // Adicione mais filmes conforme necessário
+];
+
+  // Função para preencher os dados do filme na lista existente
+  function preencherTopSeries() {
+    // Selecionar todos os itens da lista
+    let itens = document.querySelectorAll('#filmes-container4 li');
+
+    // Iterar sobre a lista de filmes e preencher os dados nos itens existentes
+    topSeries.forEach((serie, index) => {
+        if (itens[index]) {
+            let linkElement = itens[index].querySelector('a');
+            let imgElement = itens[index].querySelector('img');
+
+            // Definir os atributos do link e da imagem
+            linkElement.href = serie.link;
+            imgElement.src = serie.capa;
+            imgElement.alt = serie.nome;
+        }
+    });
+}
+preencherTopSeries();

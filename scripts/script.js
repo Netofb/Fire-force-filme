@@ -185,11 +185,17 @@ class Slide{
 }
 const slide = new Slide('.slide', '.slide-wrapper');
 slide.init();
-
 slide.changeSlide(1)
 
 const slide2 = new Slide('.slide2', '.slide-wrapper2');
 slide2.init();
 slide2.changeSlide(1);
 
-//slide 2
+
+const slide3 = new Slide('.slide3', '.slide-wrapper3');
+slide3.init();
+slide3.changeSlide(1);
+
+const slide4 = new Slide('.slide4', '.slide-wrapper4');
+slide4.init();
+slide4.changeSlide(1);
