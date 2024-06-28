@@ -20,4 +20,22 @@ img{
     }
 }
 
+.lancamentos-texto{
+    display: flex;
+    justify-content: center;
+    margin: 4rem auto;
+    h1{
+        font-size: 2rem;
+        font-weight: 500;
+        color: #fff;
+        .retangulo{
+            width: 139px;
+            height: 8px;
+            background-color: red;
+            display: block;
+        }
+       
+    }
+      
+}
 
