@@ -186,4 +186,10 @@ class Slide{
 const slide = new Slide('.slide', '.slide-wrapper');
 slide.init();
 
-slide.changeSlide(0)
+slide.changeSlide(1)
+
+const slide2 = new Slide('.slide2', '.slide-wrapper2');
+slide2.init();
+slide2.changeSlide(1);
+
+//slide 2
