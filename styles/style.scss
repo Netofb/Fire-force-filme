@@ -18,8 +18,13 @@ body{
 
 .divisoria{
    
-   margin: 2rem 2rem;
+   margin: 3rem auto;
    background-color: #D9D9D9;
-   max-width: 1400px;
+   max-width: 80vw;
    height: 3px;
+}
+@media (max-width:600px){
+   .divisoria{
+      max-width: 80vw;
+   }
 }
