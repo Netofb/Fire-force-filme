@@ -6,19 +6,19 @@ let filmes = [
         link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
     },
     {
-        nome: "A rede Social",
+        nome: "King Richard",
         capa: "./img/images.png",
         link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
     },{
-        nome: "A rede Social",
+        nome: "Suits",
         capa: "./img/images.png",
         link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
     },{
-        nome: "A rede Social",
+        nome: "Peaky Blinders",
         capa: "./img/images.png",
         link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
     },{
-        nome: "A rede Social",
+        nome: "Golpe Duplo",
         capa: "./img/images.png",
         link: "https://www.youtube.com/watch?v=gyjpKOFX4Bw&t=4010s"
     },{

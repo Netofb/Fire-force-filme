@@ -1,5 +1,12 @@
 header{
-    background-color: #262626;
+   backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    background-color: rgb(39, 39, 39);
+    border-radius: 12px;
+    
+  
+
+
     display: flex;
     justify-content: space-between;
     align-self: center;
@@ -8,7 +15,7 @@ header{
     max-width: 1400px;
     flex-wrap: wrap;
     height: 143px;
-    border-radius: 25px;
+
     padding: 0 54px 0 54px;
     position: relative;
     
@@ -18,7 +25,7 @@ header{
       .nav{
             #menu{
                display: flex;
-               gap: 54px;
+               gap: 90px;
                margin: auto;
                   .titulos-nomes{
                   text-decoration: none;

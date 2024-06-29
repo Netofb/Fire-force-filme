@@ -6,7 +6,7 @@
 [data-dropdown].active .dropdown-menu
 {
     display: block;
-    animation: show-up .3s forwards;
+    animation: show-up .5s forwards;
 }
 
 
@@ -14,13 +14,13 @@
     position: relative;
     
     .dropdown-menu{
-        border-radius: 0 !important;
-        
         gap: 10px;
         top: 2.2rem;
         flex-direction: column;
         position: absolute;
         background-color: rgb(31, 31, 31);
+        width: 150px;
+        height: 100px;
         
         z-index: 999;
           

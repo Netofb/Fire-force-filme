@@ -12,7 +12,10 @@ body {
 }
 
 header {
-  background-color: #262626;
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  background-color: rgb(39, 39, 39);
+  border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-self: center;
@@ -21,7 +24,6 @@ header {
   max-width: 1400px;
   flex-wrap: wrap;
   height: 143px;
-  border-radius: 25px;
   padding: 0 54px 0 54px;
   position: relative;
 }
@@ -30,7 +32,7 @@ header img {
 }
 header .nav #menu {
   display: flex;
-  gap: 54px;
+  gap: 90px;
   margin: auto;
 }
 header .nav #menu .titulos-nomes {
@@ -48,19 +50,20 @@ header .nav #menu .titulos-nomes {
 [data-dropdown]:hover .dropdown-menu,
 [data-dropdown].active .dropdown-menu {
   display: block;
-  animation: show-up 0.3s forwards;
+  animation: show-up 0.5s forwards;
 }
 
 [data-dropdown] {
   position: relative;
 }
 [data-dropdown] .dropdown-menu {
-  border-radius: 0 !important;
   gap: 10px;
   top: 2.2rem;
   flex-direction: column;
   position: absolute;
   background-color: rgb(31, 31, 31);
+  width: 150px;
+  height: 100px;
   z-index: 999;
 }
 [data-dropdown] .dropdown-menu::before {
@@ -215,11 +218,19 @@ img {
   max-width: 300px;
   margin: 0 15px;
 }
+.slide-wrapper .slide li a img, .slide-wrapper .slide2 li a img, .slide-wrapper .slide3 li a img, .slide-wrapper .slide4 li a img, .slide-wrapper2 .slide li a img, .slide-wrapper2 .slide2 li a img, .slide-wrapper2 .slide3 li a img, .slide-wrapper2 .slide4 li a img, .slide-wrapper3 .slide li a img, .slide-wrapper3 .slide2 li a img, .slide-wrapper3 .slide3 li a img, .slide-wrapper3 .slide4 li a img, .slide-wrapper4 .slide li a img, .slide-wrapper4 .slide2 li a img, .slide-wrapper4 .slide3 li a img, .slide-wrapper4 .slide4 li a img {
+  opacity: 0.7;
+}
+.slide-wrapper .slide li a img:hover, .slide-wrapper .slide2 li a img:hover, .slide-wrapper .slide3 li a img:hover, .slide-wrapper .slide4 li a img:hover, .slide-wrapper2 .slide li a img:hover, .slide-wrapper2 .slide2 li a img:hover, .slide-wrapper2 .slide3 li a img:hover, .slide-wrapper2 .slide4 li a img:hover, .slide-wrapper3 .slide li a img:hover, .slide-wrapper3 .slide2 li a img:hover, .slide-wrapper3 .slide3 li a img:hover, .slide-wrapper3 .slide4 li a img:hover, .slide-wrapper4 .slide li a img:hover, .slide-wrapper4 .slide2 li a img:hover, .slide-wrapper4 .slide3 li a img:hover, .slide-wrapper4 .slide4 li a img:hover {
+  opacity: 1;
+  transition: 0.3s ease-in-out;
+  transform: scale(1.02);
+}
 
 .lancamentos-texto {
   display: flex;
   justify-content: center;
-  margin: 4rem auto;
+  margin: 8rem auto;
 }
 .lancamentos-texto h1 {
   font-size: 2rem;
@@ -252,7 +263,7 @@ footer {
   }
 }
 .divisoria {
-  margin: 3rem auto;
+  margin: 4rem auto;
   background-color: #D9D9D9;
   max-width: 80vw;
   height: 3px;
