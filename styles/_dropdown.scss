@@ -45,8 +45,10 @@
                 padding-left: 1rem;
                 a {
                     font-weight: 500; 
+                    color: #fff;
+                    text-decoration: none;
                     &:hover{
-                        color: red !important;
+                        color: red ;
                     } 
                 }   
             }

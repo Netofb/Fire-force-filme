@@ -33,11 +33,12 @@ header .nav #menu {
   gap: 54px;
   margin: auto;
 }
-header .nav #menu a {
+header .nav #menu .titulos-nomes {
   text-decoration: none;
   font-size: 1.4rem;
   color: #fff;
   font-weight: 400;
+  z-index: 999;
 }
 
 [data-dropdown] .dropdown-menu {
@@ -82,9 +83,11 @@ header .nav #menu a {
 }
 [data-dropdown] .dropdown-menu li a {
   font-weight: 500;
+  color: #fff;
+  text-decoration: none;
 }
 [data-dropdown] .dropdown-menu li a:hover {
-  color: red !important;
+  color: red;
 }
 
 @keyframes show-up {
