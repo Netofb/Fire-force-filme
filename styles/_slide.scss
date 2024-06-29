@@ -29,7 +29,7 @@ img{
         font-weight: 500;
         color: #fff;
         .retangulo{
-            width: 139px;
+            max-width: 139px;
             height: 8px;
             background-color: red;
             display: block;
@@ -46,5 +46,12 @@ footer{
 .direitos{
     text-align: center;
     justify-items: center;
-    margin: 0 auto
+    margin: 0 auto;
+    font-size: 1rem;
+    color: #fff;
+}
+@media(max-width: 600px){
+    .direitos{
+        font-size: 0.6rem;
+    }
 }
