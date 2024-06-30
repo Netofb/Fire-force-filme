@@ -44,7 +44,7 @@
     
     #menu{
         display: none !important;
-        gap: 1rem;
+        gap: 2rem !important;
         flex-direction: column;
         position: absolute;
         background-color: red;
@@ -52,8 +52,8 @@
         
         
         width: 230px;
-        z-index: 99;
-        padding: 60px 0 20px 0;
+        z-index: 9999;
+        padding: 20px 0 20px 0;
         top: 5rem;
         border-radius: 5px;
     }

@@ -64,7 +64,7 @@ header .nav #menu .titulos-nomes {
   background-color: rgb(31, 31, 31);
   width: 150px;
   height: 100px;
-  z-index: 999;
+  z-index: 99999;
 }
 [data-dropdown] .dropdown-menu::before {
   content: "";
@@ -140,14 +140,14 @@ header .nav #menu .titulos-nomes {
   }
   #menu {
     display: none !important;
-    gap: 1rem;
+    gap: 2rem !important;
     flex-direction: column;
     position: absolute;
     background-color: red;
     align-items: center;
     width: 230px;
-    z-index: 99;
-    padding: 60px 0 20px 0;
+    z-index: 9999;
+    padding: 20px 0 20px 0;
     top: 5rem;
     border-radius: 5px;
   }
