@@ -138,6 +138,9 @@ header .nav #menu .titulos-nomes {
     box-shadow: 0 5px red, 0 -5px red;
     transition: transform 0.3s;
   }
+  [data-menu=List] {
+    gap: 2rem !important;
+  }
   #menu {
     display: none !important;
     gap: 2rem !important;
