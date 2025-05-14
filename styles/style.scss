@@ -4,7 +4,9 @@
    box-sizing: border-box;
    font-family: "Poppins", sans-serif;
    list-style-type: none;
+   text-decoration: none;
 }
+
 body{
    background-color: #171717;
 }
@@ -15,6 +17,12 @@ body{
 @import '_dropdown.scss';
 @import '_menuMobile.scss';
 @import '_slide.scss';
+@import '_painel.scss';
+@import '_loginRegistro.scss';
+
+
+ 
+ 
 
 .divisoria{
    
@@ -28,3 +36,5 @@ body{
       max-width: 80vw;
    }
 }
+
+ 

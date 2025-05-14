@@ -1,24 +1,41 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Ignore arquivos de sistema
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+
+# Ignora arquivos de log e cache
+*.log
+*.cache
+
+# Ignora arquivos de backup
+*.bak
+*.tmp
+*.swp
+
+# Pasta de dependências (caso use Composer futuramente)
+vendor/
+
+# Configurações locais
+.env
+.env.*
+
+# Banco de dados local
+*.sql
+*.sqlite
+*.pgdata
+
+# IDEs/editores
+.vscode/
+.idea/
+
+# Node (caso use algo tipo Vite, etc)
+node_modules/
+dist/
+
+# Ignora todos os arquivos SASS parciais (que começam com "_")
+styles/_*.scss
+
+# Ignora mapas de estilo CSS
+styles/*.css.map
+
+# (Opcional) Ignora todos os .scss e só mantém style.css
+# styles/*.scss
