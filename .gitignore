@@ -39,3 +39,5 @@ styles/*.css.map
 
 # (Opcional) Ignora todos os .scss e só mantém style.css
 # styles/*.scss
+
+.env

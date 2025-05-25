@@ -1,49 +1,43 @@
 <?php
-$host = "localhost";
-$port = "5432";
-$dbname = "fff"; 
-$user = "postgres";       
-$password = "fabio99248033";  
+require_once '../conexao.php';
 
-$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
+$titulo = $_POST['titulo'];
+$capa_url = $_POST['capa_url'];
+$link = $_POST['link'];
+$genero = $_POST['genero'];
+$categorias = $_POST['categorias'] ?? []; // Array de categorias
 
-if (!$conn) {
-    die("Erro na conexão com o banco de dados.");
-}
-pg_set_client_encoding($conn, "UTF8");
+try {
+    // Inicia a transação
+    $pdo->beginTransaction();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $titulo = pg_escape_string($_POST['titulo']);
-    $capa_url = pg_escape_string($_POST['capa_url']);
-    $link = pg_escape_string($_POST['link']);
-    $genero = pg_escape_string($_POST['genero']);
-    $categorias = $_POST['categorias']; // Este campo é um array
+    // Inserir o filme na tabela filmes
+    $stmt = $pdo->prepare("INSERT INTO filmes (titulo, capa_url, link, genero) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$titulo, $capa_url, $link, $genero]);
 
-    // Inserir o filme na tabela de filmes
-    $query_filme = "INSERT INTO filmes (titulo, capa_url, link, genero) VALUES ($1, $2, $3, $4) RETURNING id";
-    $result_filme = pg_query_params($conn, $query_filme, [$titulo, $capa_url, $link, $genero]);
+    // Obter o ID do filme recém-inserido
+    $filmeId = $pdo->lastInsertId('filmes_id_seq'); // Verifique se o nome da sequência está correto no seu banco
 
-    if ($result_filme) {
-        $filme = pg_fetch_assoc($result_filme);
-        $id_filme = $filme['id'];
+    // Inserir as categorias selecionadas na tabela filme_categoria
+    if (!empty($categorias)) {
+        $stmtCategoria = $pdo->prepare("INSERT INTO filme_categoria (id_filme, id_categoria) VALUES (?, ?)");
 
-        // Inserir categorias, se houver
-        if (!empty($categorias)) {
-            foreach ($categorias as $categoria_id) {
-                $query_categoria = "INSERT INTO filme_categoria (id_filme, id_categoria) VALUES ($1, $2)";
-                $result_categoria = pg_query_params($conn, $query_categoria, [$id_filme, $categoria_id]);
-                
-                if (!$result_categoria) {
-                    echo "Erro ao adicionar categoria: " . pg_last_error($conn);
-                }
+        foreach ($categorias as $categoriaId) {
+            if (!empty($categoriaId)) {
+                $stmtCategoria->execute([$filmeId, $categoriaId]);
             }
         }
-        header("Location: ../painel.php?sucesso=1");
-        exit();
-    } else {
-        echo "Erro ao adicionar filme: " . pg_last_error($conn);
-        header("Location: ../painel.php?erro=1");
-        exit();
     }
+
+    // Commit da transação
+    $pdo->commit();
+
+    header('Location: ../painel.php?sucesso=1');
+    exit;
+} catch (PDOException $e) {
+    // Se der erro, desfaz a transação
+    $pdo->rollBack();
+    echo "Erro ao adicionar filme: " . $e->getMessage();
+    exit;
 }
 ?>

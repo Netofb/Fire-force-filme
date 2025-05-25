@@ -120,7 +120,7 @@ if ($filmes) {
                 </section>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>Nenhum filme encontrado.</p>
+            <p class="film_search">NÃO TEMOS FILMES DESSA CATEGORIA NO MOMENTO</p>
         <?php endif; ?>
 
         <div class="divisoria"></div>

@@ -1,40 +1,32 @@
 <?php
-$host = "localhost";
-$port = "5432";
-$dbname = "fff"; 
-$user = "postgres";       
-$password = "fabio99248033";  
+require_once '../conexao.php';
 
-$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
+try {
+    // Consulta com JOIN para trazer as categorias relacionadas aos filmes
+    $sql = "
+        SELECT 
+            filmes.id, 
+            filmes.titulo, 
+            filmes.capa_url, 
+            filmes.link, 
+            filmes.tipo,
+            array_agg(categorias.nome) AS categorias
+        FROM filmes
+        LEFT JOIN filme_categoria ON filmes.id = filme_categoria.id_filme
+        LEFT JOIN categorias ON categorias.id = filme_categoria.id_categoria
+        GROUP BY filmes.id
+        ORDER BY filmes.id ASC
+    ";
 
-if (!$conn) {
-    die("Erro na conexão com o banco de dados.");
-}
-pg_set_client_encoding($conn, "UTF8");
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $filmes = $stmt->fetchAll();
 
-// Alterei a consulta para trazer as categorias relacionadas aos filmes
-$query = "
-    SELECT 
-        filmes.id, 
-        filmes.titulo, 
-        filmes.capa_url, 
-        filmes.link, 
-        filmes.tipo, 
-        array_agg(categorias.nome) AS categorias
-    FROM filmes
-    LEFT JOIN filme_categoria ON filmes.id = filme_categoria.id_filme
-    LEFT JOIN categorias ON categorias.id = filme_categoria.id_categoria
-    GROUP BY filmes.id
-    ORDER BY filmes.id ASC
-";
-
-$result = pg_query($conn, $query);
-
-// Verificar se a consulta retornou resultados
-if (!$result) {
-    die("Erro na execução da consulta: " . pg_last_error($conn));
+} catch (PDOException $e) {
+    die("Erro na consulta: " . $e->getMessage());
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -65,20 +57,31 @@ if (!$result) {
             <th>Categorias</th>
             <th>Ações</th>
         </tr>
-        <?php while ($filme = pg_fetch_assoc($result)): ?>
+
+        <?php foreach ($filmes as $filme): ?>
             <tr>
                 <td><?= htmlspecialchars($filme['id']) ?></td>
                 <td><?= htmlspecialchars($filme['titulo']) ?></td>
-                <td><img src="<?= htmlspecialchars($filme['capa_url']) ?>" alt="<?= htmlspecialchars($filme['titulo']) ?>"></td>
-                <td><a href="<?= htmlspecialchars($filme['link']) ?>" target="_blank">Assistir</a></td>
+                <td>
+                    <img src="<?= htmlspecialchars($filme['capa_url']) ?>" alt="<?= htmlspecialchars($filme['titulo']) ?>">
+                </td>
+                <td>
+                    <a href="<?= htmlspecialchars($filme['link']) ?>" target="_blank">Assistir</a>
+                </td>
                 <td><?= htmlspecialchars($filme['tipo']) ?></td>
-                <td><?= !empty($filme['categorias']) ? implode(", ", $filme['categorias']) : 'Sem categoria' ?></td>
+                <td>
+                    <?= !empty($filme['categorias']) && $filme['categorias'][0] != null 
+                        ? implode(", ", $filme['categorias']) 
+                        : 'Sem categoria' ?>
+                </td>
                 <td>
                     <a class="btn edit" href="editar-filme.php?id=<?= $filme['id'] ?>">Editar</a>
                     <a class="btn delete" href="excluir-filme.php?id=<?= $filme['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
                 </td>
             </tr>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
+
     </table>
 </body>
 </html>
+

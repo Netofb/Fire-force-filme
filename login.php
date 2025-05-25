@@ -1,27 +1,32 @@
 <?php
 session_start();
+require_once 'conexao.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $conn = pg_connect("host=localhost port=5432 dbname=fff user=postgres password=fabio99248033");
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    $query = "SELECT * FROM usuarios WHERE email = $1";
-    $result = pg_query_params($conn, $query, [$email]);
-    pg_set_client_encoding($conn, "UTF8");
-    if ($usuario = pg_fetch_assoc($result)) {
-        if (password_verify($senha, $usuario['senha'])) {
-            $_SESSION['usuario'] = $usuario['nome'];
-            header("Location: index.php");
-            exit;
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($usuario) {
+            if (password_verify($senha, $usuario['senha'])) {
+                $_SESSION['usuario'] = $usuario['nome'];
+                header("Location: index.php");
+                exit;
+            } else {
+                echo "Senha incorreta!";
+            }
         } else {
-            echo "Senha incorreta!";
+            echo "Usuário não encontrado!";
         }
-    } else {
-        echo "Usuário não encontrado!";
+    } catch (PDOException $e) {
+        echo "Erro no login: " . $e->getMessage();
     }
 }
-
 ?>
 
 <!DOCTYPE html>

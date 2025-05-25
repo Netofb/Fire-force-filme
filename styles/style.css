@@ -259,7 +259,7 @@ img {
   flex-shrink: 0;
   width: 33vw;
   max-width: 300px;
-  margin: 0 15px;
+  margin: 0 2rem;
 }
 .slide-wrapper .slide li a,
 .slide-wrapper .slide2 li a,
@@ -295,7 +295,7 @@ img {
 .slide-wrapper4 .slide2 li a img,
 .slide-wrapper4 .slide3 li a img,
 .slide-wrapper4 .slide4 li a img {
-  width: 100%;
+  width: 300px;
   height: auto;
   transition: 0.3s ease-in-out;
 }
@@ -387,6 +387,12 @@ footer {
     font-size: 0.6rem;
   }
 }
+.film_search {
+  text-align: center;
+  color: rgb(211, 13, 13);
+  font-size: 1.2rem;
+}
+
 .painel_container {
   margin: 2rem auto;
   padding: 30px;
