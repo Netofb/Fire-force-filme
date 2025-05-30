@@ -17,7 +17,7 @@ RUN a2enmod rewrite
 # Configura Apache para escutar na porta que o Render define
 RUN sed -i 's/80/${PORT}/g' /etc/apache2/ports.conf /etc/apache2/sites-enabled/000-default.conf
 
-# Copia APENAS os arquivos necessários para instalar dependências primeiro (otimização de cache)
+# Copia APENAS os arquivos necessários para instalar dependências primeiro
 COPY composer.json composer.lock /var/www/html/
 
 # Instala as dependências do Composer
@@ -27,11 +27,11 @@ RUN cd /var/www/html && \
 # Copia o resto dos arquivos do projeto
 COPY . /var/www/html/
 
-# Permissão para os arquivos
+# Permissão para os arquivos (ajustado para seu projeto)
 RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 755 /var/www/html/storage
+    [ -d "/var/www/html/storage" ] && chmod -R 755 /var/www/html/storage || true
 
-# Expondo porta 8080 (Render usa automaticamente PORT=8080)
+# Expondo porta 8080
 EXPOSE 8080
 
 # Inicializa Apache
