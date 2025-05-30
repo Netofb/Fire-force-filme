@@ -1,15 +1,12 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-// Configuração de ambiente
-$isProduction = getenv('RENDER') !== false;
-
-if (!$isProduction && file_exists(__DIR__ . '/.env')) {
+// Carrega variáveis de ambiente
+if (file_exists(__DIR__ . '/.env')) {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->safeLoad();
 }
 
-// Obtenção das credenciais
 $dbConfig = [
     'host' => $_ENV['DB_HOST'] ?? getenv('DB_HOST'),
     'port' => $_ENV['DB_PORT'] ?? getenv('DB_PORT') ?? '5432',
@@ -18,39 +15,25 @@ $dbConfig = [
     'password' => $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD')
 ];
 
-// Verificação detalhada
+// Verifica configuração
 foreach ($dbConfig as $key => $value) {
     if (empty($value)) {
-        error_log("Variável faltando: DB_".strtoupper($key));
+        die("Erro: Configuração DB_".strtoupper($key)." faltando");
     }
 }
 
 try {
-    // Conexão com SSL para Supabase
-    $dsn = sprintf("pgsql:host=%s;port=%s;dbname=%s",
-        $dbConfig['host'],
-        $dbConfig['port'],
-        $dbConfig['dbname']
-    );
+    // Conexão com SSL via string DSN
+    $dsn = "pgsql:host={$dbConfig['host']};port={$dbConfig['port']};dbname={$dbConfig['dbname']};sslmode=require";
     
-    $options = [
+    $pdo = new PDO($dsn, $dbConfig['user'], $dbConfig['password'], [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_PERSISTENT => false,
-        PDO::ATTR_EMULATE_PREPARES => false,
-        PDO::PGSQL_ATTR_SSL_MODE => PDO::PGSQL_SSL_MODE_REQUIRE
-    ];
-    
-    $pdo = new PDO($dsn, $dbConfig['user'], $dbConfig['password'], $options);
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
+    ]);
     
     // Teste de conexão
-    $stmt = $pdo->query("SELECT 1");
-    if ($stmt->fetchColumn() != 1) {
-        throw new PDOException("Test query failed");
-    }
-    
-    return $pdo;
+    $pdo->query("SELECT 1");
 } catch (PDOException $e) {
-    error_log("ERRO DE CONEXÃO: " . $e->getMessage());
-    error_log("Tentando conectar em: ".$dsn);
-    throw new Exception("Não foi possível conectar ao banco de dados. Por favor, tente novamente mais tarde.");
+    die("Erro de conexão: " . $e->getMessage());
 }
