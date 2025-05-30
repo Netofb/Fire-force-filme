@@ -1,66 +1,57 @@
 <?php
-// CONEXÃO COM O BANCO DE DADOS PostgreSQL
-$host = "localhost";
-$port = "5432";
-$dbname = "fff"; 
-$user = "postgres";       
-$password = "fabio99248033";  
-
-$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
 session_start();
+require_once 'conexao.php';
 
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
-    exit;
+    header('Location: login.php');
+    exit();
 }
+// ✅ Captura da categoria selecionada na URL, se existir
+$categoriaSelecionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
 
-if (!$conn) {
-    die("Erro ao conectar ao banco de dados.");
-}
+try {
+    $sql = "
+        SELECT 
+            filmes.id, 
+            filmes.titulo, 
+            filmes.capa_url, 
+            filmes.link, 
+            filmes.genero,
+            array_agg(categorias.nome) AS categorias
+        FROM filmes
+        LEFT JOIN filme_categoria ON filmes.id = filme_categoria.id_filme
+        LEFT JOIN categorias ON categorias.id = filme_categoria.id_categoria
+        GROUP BY filmes.id
+        ORDER BY filmes.id ASC
+    ";
 
-pg_set_client_encoding($conn, "UTF8");
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $filmes = $stmt->fetchAll();
 
-// FILTRO DE CATEGORIA
-$categoriaSelecionada = $_GET['categoria'] ?? null;
+    // ✅ Filtra os filmes pela categoria, se alguma foi selecionada
+    $filmesPorCategoria = [];
 
-// Consulta base
-$query = "
-    SELECT f.id, f.titulo, f.capa_url, f.link, f.genero, c.nome AS categoria
-    FROM filmes f
-    JOIN filme_categoria fc ON f.id = fc.id_filme
-    JOIN categorias c ON fc.id_categoria = c.id
-";
+    foreach ($filmes as $filme) {
+        $categorias = $filme['categorias'] ? explode(',', str_replace(['{','}'], '', $filme['categorias'])) : [];
 
-// Se tiver uma categoria selecionada, adiciona o filtro
-if ($categoriaSelecionada) {
-    $query .= " WHERE c.nome = $1";
-    $result = pg_query_params($conn, $query, [$categoriaSelecionada]);
-} else {
-    $query .= " ORDER BY c.nome, f.titulo";
-    $result = pg_query($conn, $query);
-}
-
-if (!$result) {
-    die("Erro na consulta SQL: " . pg_last_error($conn));
-}
-
-$filmes = pg_fetch_all($result);
-
-// Organiza por categoria (se não tiver filtro)
-$filmesPorCategoria = [];
-
-if ($filmes) {
-    if ($categoriaSelecionada) {
-        // Se estiver filtrando, coloca tudo em uma categoria só
-        $filmesPorCategoria[$categoriaSelecionada] = $filmes;
-    } else {
-        foreach ($filmes as $filme) {
-            $categoria = $filme['categoria'];
-            $filmesPorCategoria[$categoria][] = $filme;
+        if ($categoriaSelecionada) {
+            if (in_array($categoriaSelecionada, $categorias)) {
+                $filmesPorCategoria[$categoriaSelecionada][] = $filme;
+            }
+        } else {
+            foreach ($categorias as $categoria) {
+                $filmesPorCategoria[$categoria][] = $filme;
+            }
         }
     }
+
+} catch (PDOException $e) {
+    die("Erro na consulta: " . $e->getMessage());
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -75,27 +66,27 @@ if ($filmes) {
 
     <header>
         <a href="index.php"><img src="img/logofire.svg" alt=""></a>
-            <nav class="nav">
-                <button data-menu="button" id="btn" aria-expanded="false" aria-controls="menu">Menu</button>
-                <ul data-menu="List" id="menu">
-                    <li data-dropdown>
+        <nav class="nav">
+            <button data-menu="button" id="btn" aria-expanded="false" aria-controls="menu">Menu</button>
+            <ul data-menu="List" id="menu">
+                <li data-dropdown>
                     <a href="#" class="titulos-nomes">Categorias</a>
                     <ul class="dropdown-menu">
-                        <li><a href="?categoria=Acao">Ação</a></li>
+                        <li><a href="?categoria=Ação">Ação</a></li>
                         <li><a href="?categoria=Terror">Terror</a></li>
-                        <li><a href="?categoria=Comedia">Comédia</a></li>
+                        <li><a href="?categoria=Comédia">Comédia</a></li>
                         <li><a href="?categoria=Drama">Drama</a></li>
                     </ul>
-                    </li>
-                </ul>
-            </nav>
+                </li>
+            </ul>
+        </nav>
     </header>
 
     <section class="lancamentos">
         <div class="lancamentos-texto">
             <h1>
                 <?php if ($categoriaSelecionada): ?>
-                    <?= htmlspecialchars($categoriaSelecionada) ?> 
+                    <?= htmlspecialchars($categoriaSelecionada) ?>
                 <?php else: ?>
                     Filmes
                 <?php endif; ?>

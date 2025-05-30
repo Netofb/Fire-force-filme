@@ -2,14 +2,13 @@
 require_once '../conexao.php';
 
 try {
-    // Consulta com JOIN para trazer as categorias relacionadas aos filmes
     $sql = "
         SELECT 
             filmes.id, 
             filmes.titulo, 
             filmes.capa_url, 
             filmes.link, 
-            filmes.tipo,
+            filmes.genero,
             array_agg(categorias.nome) AS categorias
         FROM filmes
         LEFT JOIN filme_categoria ON filmes.id = filme_categoria.id_filme
