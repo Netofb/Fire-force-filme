@@ -36,7 +36,14 @@ EXPOSE 8080
 
 # Inicializa Apache
 CMD ["apache2-foreground"]
-COPY .env.example /var/www/html/.env
+# ... (mantenha todas as configurações anteriores até a linha 38)
 
-# Permissões (ajustado para seu caso)
+RUN if [ -f .env.example ]; then \
+      cp .env.example /var/www/html/.env; \
+    else \
+      touch /var/www/html/.env; \
+      chmod 644 /var/www/html/.env; \
+    fi
+
+# Permissões
 RUN chown -R www-data:www-data /var/www/html
