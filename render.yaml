@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: Fire-force-filme
+    env: docker
+    branch: main
+    plan: free
+    repo: https://github.com/Netofb/Fire-force-filme
+    autoDeploy: true
