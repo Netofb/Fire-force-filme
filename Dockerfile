@@ -30,3 +30,4 @@ RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 8080
 CMD ["apache2-foreground"]
+COPY .env /var/www/html/
