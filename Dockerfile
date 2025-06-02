@@ -1,33 +1,33 @@
+# Imagem base com PHP e Apache
 FROM php:8.1-apache
 
-# Instala dependências do PostgreSQL e SSL
+# Instala dependências do PostgreSQL e ferramentas
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     git \
     unzip \
-    openssl \
-    && docker-php-ext-install pdo pdo_pgsql pgsql \
-    && docker-php-ext-enable pdo_pgsql
+    && docker-php-ext-install pdo pdo_pgsql pgsql
+
+# Ativa o mod_rewrite do Apache
+RUN a2enmod rewrite
 
 # Instala o Composer
-RUN curl -sS https://getcomposer.org/installer | php -- \
-    --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Configurações do Apache
-RUN a2enmod rewrite
-RUN sed -i 's/80/${PORT}/g' /etc/apache2/ports.conf /etc/apache2/sites-enabled/000-default.conf
-
-# Instala dependências
-COPY composer.json composer.lock /var/www/html/
-RUN cd /var/www/html && \
-    composer install --no-dev --optimize-autoloader
-
-# Copia o código
+# Copia o código para a imagem
 COPY . /var/www/html/
 
 # Permissões
 RUN chown -R www-data:www-data /var/www/html
 
-EXPOSE 8080
+# Expõe a porta padrão do Apache (Railway cuida do roteamento)
+EXPOSE 8000
+
+# Define a variável de ambiente para Apache rodar na porta 8000
+ENV PORT=8000
+
+# Altera configuração da porta no Apache
+RUN sed -i "s/80/8000/g" /etc/apache2/ports.conf /etc/apache2/sites-enabled/000-default.conf
+
+# Comando de inicialização
 CMD ["apache2-foreground"]
-COPY .env /var/www/html/
