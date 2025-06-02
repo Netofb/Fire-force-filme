@@ -49,6 +49,7 @@ try {
 } catch (PDOException $e) {
     die("Erro na consulta: " . $e->getMessage());
 }
+
 ?>
 
 
