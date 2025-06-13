@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: meu-sistema-php
+    env: php
+    buildCommand: ""
+    startCommand: ""
+    plan: free
+    branch: main
+    region: oregon
+    rootDir: .
