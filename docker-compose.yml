@@ -1,0 +1,10 @@
+services:
+  app:
+    image: php:8.2-apache
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8000:80"
+    environment:
+      - DB_HOST=db.wfyvvnoxncvawnojgkul.supabase.co
+      - DB_PASSWORD=lBk8rZ6rR3GJbTIr

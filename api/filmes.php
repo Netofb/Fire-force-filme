@@ -1,30 +1,47 @@
 <?php
 header('Content-Type: application/json');
 
-$host = "localhost";
-$port = "5432";
-$dbname = "fff"; 
-$user = "postgres";       
-$password = "fabio99248033";  
+// Carrega variáveis de ambiente
+require_once __DIR__ . '/vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
+try {
+    // Conexão usando DATABASE_URL (recomendado pelo Supabase)
+    $dbUrl = $_ENV['DATABASE_URL'];
+    $conn = pg_connect($dbUrl);
+    
+    if (!$conn) {
+        throw new Exception("Falha na conexão: " . pg_last_error());
+    }
 
-if (!$conn) {
-    echo json_encode(['erro' => 'Erro na conexão com o banco']);
-    exit;
+    // Consulta parametrizada (proteção contra SQL Injection)
+    $query = "SELECT titulo AS nome, capa_url AS capa, link FROM filmes WHERE destaque = $1";
+    $result = pg_query_params($conn, $query, [true]);
+
+    if (!$result) {
+        throw new Exception("Erro na consulta: " . pg_last_error());
+    }
+
+    $filmes = pg_fetch_all($result) ?: []; // Operador null coalescing
+    
+    // Resposta padrão API
+    $response = [
+        'status' => 'success',
+        'data' => $filmes,
+        'timestamp' => time()
+    ];
+
+} catch (Exception $e) {
+    $response = [
+        'status' => 'error',
+        'message' => $e->getMessage(),
+        'code' => 500
+    ];
+    
+    http_response_code(500);
+} finally {
+    if (isset($conn)) pg_close($conn);
 }
 
-// Alterando a consulta para buscar filmes com destaque = true (ou false, dependendo do caso)
-$query = "SELECT titulo AS nome, capa_url AS capa, link FROM filmes WHERE destaque = $1";
-$result = pg_query_params($conn, $query, [true]); // Aqui estamos buscando filmes com destaque TRUE
-
-if (!$result) {
-    echo json_encode(['erro' => 'Erro na consulta']);
-    exit;
-}
-
-$filmes = pg_fetch_all($result);
-
-// Verifica se o resultado não é falso e retorna os filmes, senão retorna um array vazio
-echo json_encode($filmes ? $filmes : []); 
-exit;
+echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);

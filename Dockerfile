@@ -26,3 +26,4 @@ RUN chown -R www-data:www-data /var/www/html
 
 # Inicia Apache
 CMD ["apache2-foreground"]
+
