@@ -1,0 +1,121 @@
+.painel_container {
+  margin: 2rem auto;
+  padding: 30px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.painel_container div {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 2rem auto;
+}
+
+.painel_title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ff4500;
+  animation: mudarCor 5s linear infinite;
+}
+
+.painel_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.painel_label {
+  margin-top: 10px;
+}
+
+.painel_container input,
+.painel_container select,
+.painel_container button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.painel_container input,
+.painel_container select {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.painel_container button {
+  background-color: #ff4500;
+  color: white;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.painel_container button:hover {
+  background-color: #e03e00;
+}
+
+/* --- TABELA --- */
+.painel_table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+.painel_table thead {
+  background-color: #111;
+}
+
+.painel_table th,
+.painel_table td {
+  padding: 12px;
+  border: 1px solid #444;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.painel_table tbody tr {
+  background-color: #191919;
+}
+
+/* Imagem da capa */
+.painel_capa {
+  height: 100px;
+  border-radius: 4px;
+}
+
+/* Botões */
+.painel_edit,
+.painel_delet {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.2s ease;
+  font-size: 14px;
+}
+
+.painel_edit {
+  background-color: rgb(76, 76, 76);
+  color: #b8b4b4;
+  border: 1px solid #b8b4b4;
+}
+
+.painel_edit img {
+  width: 20px;
+  background-color: transparent;
+}
+
+.painel_delet {
+  background-color: #621414;
+  color: #f50000;
+  border: 1px solid #f50000;
+}
+
+.painel_delet img {
+  width: 20px;
+  background-color: transparent;
+}

@@ -1,65 +1,60 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
 
-// Carrega variáveis de ambiente
-if (file_exists(__DIR__ . '/../.env')) {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-    $dotenv->safeLoad();
-}
-
-// 🔥 CORREÇÃO: Use $_SERVER em vez de $_ENV para Dotenv
-$databaseUrl = $_SERVER['DATABASE_URL'] ?? $_ENV['DATABASE_URL'] ?? getenv('DATABASE_URL');
-
-// Se ainda não encontrar, use valores padrão
-if (!$databaseUrl) {
-    // Valores fallback diretos (use suas credenciais)
-    $databaseUrl = 'pgsql://postgres.wfyvvnoxncvawnojgkul:lBk8rZ6rR3GJbTIr@aws-0-sa-east-1.pooler.supabase.com:6543/postgres';
+function carregarEnv($caminhoBase) {
+    $caminhoEnv = $caminhoBase . '/.env';
     
-    // Ou use variáveis individuais como fallback
-    if (!$databaseUrl) {
-        $host = $_SERVER['DB_HOST'] ?? $_ENV['DB_HOST'] ?? 'aws-0-sa-east-1.pooler.supabase.com';
-        $port = $_SERVER['DB_PORT'] ?? $_ENV['DB_PORT'] ?? '6543';
-        $user = $_SERVER['DB_USER'] ?? $_ENV['DB_USER'] ?? 'postgres.wfyvvnoxncvawnojgkul';
-        $password = $_SERVER['DB_PASSWORD'] ?? $_ENV['DB_PASSWORD'] ?? 'lBk8rZ6rR3GJbTIr';
-        $dbname = $_SERVER['DB_NAME'] ?? $_ENV['DB_NAME'] ?? 'postgres';
-        
-        $databaseUrl = "pgsql://$user:$password@$host:$port/$dbname";
+    if (!file_exists($caminhoEnv)) {
+        return false;
     }
+    
+    $linhas = file($caminhoEnv, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    
+    foreach ($linhas as $linha) {
+        // Pula comentários
+        if (strpos(trim($linha), '#') === 0) {
+            continue;
+        }
+        
+        // Divide chave=valor
+        if (strpos($linha, '=') !== false) {
+            list($chave, $valor) = explode('=', $linha, 2);
+            $chave = trim($chave);
+            $valor = trim($valor);
+            
+            // Remove aspas se existirem
+            if (preg_match('/^"(.*)"$/', $valor, $matches) || preg_match('/^\'(.*)\'$/', $valor, $matches)) {
+                $valor = $matches[1];
+            }
+            
+            // Define nas variáveis de ambiente
+            $_ENV[$chave] = $valor;
+            $_SERVER[$chave] = $valor;
+        }
+    }
+    
+    return true;
 }
 
-if (!$databaseUrl) {
-    die("Erro: DATABASE_URL não configurada.");
-}
+// Carrega o .env
+carregarEnv(dirname(__DIR__));
 
-// Resto do código permanece igual
-$components = parse_url($databaseUrl);
-
-if (!$components || !isset($components['host'])) {
-    die("Erro: DATABASE_URL inválida.");
-}
-
-$host = $components['host'] ?? '';
-$port = $components['port'] ?? '5432';
-$user = $components['user'] ?? '';
-$pass = $components['pass'] ?? '';
-$path = $components['path'] ?? '/postgres';
-$dbname = ltrim($path, '/');
-
-// DSN para PostgreSQL
-$dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
+// Configuração da conexão com Supabase
+$host = $_ENV['DB_HOST'] ?? 'aws-0-sa-east-1.pooler.supabase.com';
+$port = $_ENV['DB_PORT'] ?? '6543';
+$dbname = $_ENV['DB_NAME'] ?? 'postgres';
+$user = $_ENV['DB_USER'] ?? 'postgres.wfyvvnoxncvawnojgkul';
+$password = $_ENV['DB_PASSWORD'] ?? 'lBk8rZ6rR3GJbTIr';
 
 try {
-    $pdo = new PDO($dsn, $user, $pass, [
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+    $pdo = new PDO($dsn, $user, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false,
         PDO::ATTR_TIMEOUT => 10
     ]);
-
-    // Teste de conexão
-    $pdo->query("SELECT 1");
     
 } catch (PDOException $e) {
-    die("Erro de conexão: " . $e->getMessage());
+    die("❌ Erro de conexão: " . $e->getMessage());
 }
 ?>

@@ -1,11 +1,6 @@
 {
     "require": {
-        "php": "^8.2",
-        "ext-pdo": "*",
-        "ext-pdo_pgsql": "*",
-        "ext-curl": "*",
-        "ext-json": "*",
-        "vlucas/phpdotenv": "^5.5"
+        "php": "^8.0"
     },
     "scripts": {
         "start": "php -S 0.0.0.0:$PORT -t public"
