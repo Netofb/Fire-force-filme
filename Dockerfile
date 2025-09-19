@@ -1,4 +1,3 @@
-# Dockerfile
 FROM php:8.2-apache
 
 # Instala extensões necessárias para PostgreSQL
@@ -9,11 +8,15 @@ RUN apt-get update && \
 # Habilita mod_rewrite do Apache
 RUN a2enmod rewrite
 
+# Configura o Apache para servir arquivos da pasta public/
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+
+# Substitui a configuração padrão do Apache
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
 # Copia os arquivos para o container
 COPY . /var/www/html/
-
-# Define o diretório de trabalho
-WORKDIR /var/www/html
 
 # Configura permissões
 RUN chown -R www-data:www-data /var/www/html && \
