@@ -1,5 +1,5 @@
 <?php
-require_once '../conexao.php';
+require_once __DIR__ . '/../includes/conexao.php';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 

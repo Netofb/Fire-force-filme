@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirect to public folder
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ public/$1 [L]
+
+# PHP settings
+php_value upload_max_filesize 20M
+php_value post_max_size 20M

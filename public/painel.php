@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/conexao.php';
+require_once __DIR__ . '/../includes/conexao.php';
 
 header('Content-Type: text/html; charset=utf-8');
 

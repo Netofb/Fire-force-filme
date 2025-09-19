@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'conexao.php';
+require_once __DIR__ . '/../includes/conexao.php';
 
 if (!isset($_SESSION['usuario'])) {
     header('Location: login.php');

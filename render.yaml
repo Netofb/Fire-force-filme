@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: fire-force-filme
+    env: php
+    buildCommand: "echo 'No build needed for PHP'"
+    startCommand: "php -S 0.0.0.0:$PORT -t public"
+    envVars:
+      - key: DATABASE_URL
+        value: pgsql://postgres.wfyvvnoxncvawnojgkul:sua_senha@aws-0-sa-east-1.pooler.supabase.com:6543/postgres
+      - key: SUPABASE_URL
+        value: https://wfyvvnoxncvawnojgkul.supabase.co
+      - key: SUPABASE_KEY
+        value: sua-chave-anonima

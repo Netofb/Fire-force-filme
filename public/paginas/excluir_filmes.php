@@ -1,5 +1,5 @@
 <?php
-require_once '../conexao.php'; // Usa a mesma conexão PDO
+require_once __DIR__ . '/../includes/conexao.php';
 
 // Verifica se o ID foi passado e é válido
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;

@@ -1,5 +1,5 @@
 <?php
-require_once '../conexao.php';
+require_once __DIR__ . '/../includes/conexao.php';
 
 $titulo = $_POST['titulo'];
 $capa_url = $_POST['capa_url'];
