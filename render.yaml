@@ -1,13 +1,20 @@
+# render.yaml
 services:
   - type: web
     name: fire-force-filme
     env: php
-    buildCommand: "echo 'No build needed for PHP'"
-    startCommand: "php -S 0.0.0.0:$PORT -t public"
+    buildCommand: echo "No build needed for PHP"
+    startCommand: php -S 0.0.0.0:$PORT -t public
     envVars:
       - key: DATABASE_URL
         value: pgsql://postgres.wfyvvnoxncvawnojgkul:sua_senha@aws-0-sa-east-1.pooler.supabase.com:6543/postgres
-      - key: SUPABASE_URL
-        value: https://wfyvvnoxncvawnojgkul.supabase.co
-      - key: SUPABASE_KEY
-        value: sua-chave-anonima
+      - key: DB_HOST
+        value: aws-0-sa-east-1.pooler.supabase.com
+      - key: DB_PORT
+        value: 6543
+      - key: DB_NAME
+        value: postgres
+      - key: DB_USER
+        value: postgres.wfyvvnoxncvawnojgkul
+      - key: DB_PASSWORD
+        value: lBk8rZ6rR3GJbTIr

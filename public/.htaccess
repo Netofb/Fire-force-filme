@@ -1,10 +1,31 @@
 RewriteEngine On
 RewriteBase /
 
-# Redirect to public folder
-RewriteCond %{REQUEST_URI} !^/public/
-RewriteRule ^(.*)$ public/$1 [L]
+# Allow access to all files in public directory
+Options +Indexes +FollowSymLinks +ExecCGI
 
-# PHP settings
-php_value upload_max_filesize 20M
-php_value post_max_size 20M
+# Allow override all
+AllowOverride All
+
+# Allow from all
+Require all granted
+
+# Redirect all requests to index.php if file doesn't exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Set default index files
+DirectoryIndex index.php index.html
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Enable compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json
+</IfModule>

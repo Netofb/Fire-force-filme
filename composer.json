@@ -3,6 +3,11 @@
         "php": "^8.0"
     },
     "scripts": {
-        "start": "php -S 0.0.0.0:$PORT -t public"
+        "start": "php -S 0.0.0.0:$PORT -t public",
+        "post-install-cmd": [
+            "chmod -R 755 public",
+            "chmod 644 public/.htaccess",
+            "find public -type f -name '*.php' -exec chmod 644 {} \\;"
+        ]
     }
 }
